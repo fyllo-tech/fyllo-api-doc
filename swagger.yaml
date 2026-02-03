@@ -892,6 +892,184 @@ paths:
                 example:
                   success: true
                   message: Logout successful
+  /farm-users/add:
+    post:
+      summary: Add Farm User
+      description: Add a new farm user. Requires custom authentication.
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  farmUserId: user_123
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                name:
+                  type: string
+                mobile:
+                  type: string
+                countryCode:
+                  type: string
+                language:
+                  type: string
+                farm:
+                  type: object
+              example:
+                id: user_123
+                name: Raju
+                mobile: '9876543210'
+                countryCode: '+91'
+                language: en
+                farm:
+                  name: Raju Farm
+                  place: Nashik
+                  taluka: Niphad
+                  district: Nashik
+  /plots/register:
+    post:
+      summary: Register Plot
+      description: Register a new plot.
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  plotId: bXlwbG901234370116673305
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lat:
+                  type: string
+                lng:
+                  type: string
+                farmUserId:
+                  type: string
+                farmId:
+                  type: string
+                farmName:
+                  type: string
+                farmArea:
+                  type: integer
+                area:
+                  type: integer
+                place:
+                  type: string
+                taluka:
+                  type: string
+                district:
+                  type: string
+                altitude:
+                  type: integer
+                soilTypeId:
+                  type: string
+                plotType:
+                  type: string
+              example:
+                name: My Plot
+                lat: '19.1234'
+                lng: '73.1234'
+                farmUserId: user_123
+                farmId: farm_456
+                farmName: My Farm
+                farmArea: 10
+                area: 2
+                place: Nashik
+                taluka: Niphad
+                district: Nashik
+                altitude: 500
+                soilTypeId: '1'
+                plotType: OPEN_FIELD
+  /plots/{plotId}/add-crop:
+    post:
+      summary: Add Crop to Plot
+      description: Add a crop to an existing plot.
+      parameters:
+      - name: plotId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the plot
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: 6981d6d7041552a027627c25
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cropId:
+                  type: string
+                sowingDate:
+                  type: string
+                varietyId:
+                  type: string
+                rootStockId:
+                  type: string
+                plantationYear:
+                  type: string
+              example:
+                cropId: grapes
+                sowingDate: '2023-10-27T00:00:00.000Z'
+                varietyId: thompson
+                rootStockId: dogridge
+                plantationYear: '2023'
+  /plots/{plotId}/add-device:
+    post:
+      summary: Add Device to Plot
+      description: Add a device (IMEI) to an existing plot.
+      parameters:
+      - name: plotId
+        in: path
+        required: true
+        schema:
+          type: string
+        description: ID of the plot
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  id: device_123
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imei:
+                  type: string
+              example:
+                imei: '123456789012345'
 components:
   securitySchemes:
     BearerAuth:
